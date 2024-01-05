@@ -1,12 +1,20 @@
 # from django.shortcuts import render
 from django.shortcuts import render
 from .models import ProduccionesMod, MultitracksMod, ChartsMod
-from sitio.forms import Formulario
+from sitio.forms import SearchForm
 
 # ============= VISTA HOME ================
 
 def home_v(request):
-    return render(request, 'index.html')
+    form = SearchForm(request.GET)
+    results = None
+
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        # Realiza la búsqueda en tu modelo
+        results = ChartsMod.objects.filter(artista__icontains=query)
+
+    return render(request, 'index.html', {"form":form, "results":results})
 
 # ============= VISTA PRODUCCION ==========
 
@@ -39,26 +47,6 @@ def multitracks_v(request):
 
     return render(request, 'multitracks.html')
 
-# ============ VISTA CHARTS CON API===================
-
-# def charts_v(request):
-#     if request.method == "POST":
-#         form = Formulario(request.POST)
-#         print(f"Es valido:{form.is_valid}")
-
-#         if form.is_valid:
-#             datos = form.cleaned_data
-
-#             artista = datos.get("artista")
-#             cancion = datos.get("cancion")
-#             tonalidad = datos.get("tonalidad")
-
-#             form = Formulario(artista=artista, cancion=cancion, tonalidad=tonalidad)
-#             form.save()
-
-#             return render(request, 'index.html')
-
-#     return render(request, 'charts.html')
 
 # ======= VISTA CHARTS ======== 
 
@@ -74,3 +62,30 @@ def charts_v(request):
         return render(request, 'index.html')
 
     return render(request, 'charts.html')
+
+
+# ============ VISTA FIND =========
+
+# def find_v(request):
+
+#     if request.method == "GET":
+#         artista = request.GET.get("artista")
+#         cancion = request.GET.get("cancion")
+#         tonalidad = request.GET.get("tonalidad")
+
+
+#     return render(request, 'charts.html', {"artista":artista, "cancion":cancion, "tonalidad":tonalidad})
+
+
+# def find_v(request):
+
+#     if request.method == "GET":
+#         artista = request.GET.get("artista")
+#         cancion = request.GET.get("cancion")
+#         tonalidad = request.GET.get("tonalidad")
+
+#         if artista or cancion or tonalidad is None:
+#             return 
+
+
+#     return render(request, 'charts.html')

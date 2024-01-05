@@ -1,8 +1,9 @@
 {% extends 'index.html' %}
 {% load static %}
+
+{% block button %} <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'home' %}">Más</a> {% endblock %}
+
 {% block content %}
-
-
 <!-- Formulario -->
 <section class="page-section" id="contact">
     <div class="container">
@@ -27,24 +28,26 @@
                     <div class="form-group">
                         <!-- Key input-->
                         <input class="form-control" name="tonalidad" id="name" type="text" placeholder="Tonalidad *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="name:required">Especifica tu tonalidad</div>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">Especifica la tonalidad</div>
                     </div>
                 </div>
             </div>
-            <!-- Submit success message-->
-            <div class="d-none" id="submitSuccessMessage">
-                <div class="text-center text-white mb-3">
-                    <div class="fw-bolder">Enviado con éxito!</div>
-                </div>
-            </div>
-            <!-- Submit error message-->
-            <div class="d-none" id="submitErrorMessage">
-                <div class="text-center text-danger mb-3">Error enviando el mensaje!</div>
-            </div>
             <!-- Submit Button-->
-            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Enviar</button></div>
+            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Buscar</button></div>
         </form>
     </div>
 </section>
 
 {% endblock %}
+
+<!-- <section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Charts</h2>
+            <h3 class="section-subheading text-muted">RESULTADOS</h3>
+            <table>
+                {{charts.as_table}}
+            </table>
+        </div>
+    </div>
+</section> -->
