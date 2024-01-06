@@ -17,12 +17,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <!-- Artist input-->
-                        <input class="form-control" name="artista" id="name" type="text" placeholder="Nombre de tu artista *" data-sb-validations="required" />
-                        <div class="invalid-feedback" data-sb-feedback="name:required">Se requiere un nombre</div>
+                        <input class="form-control" name="artista" id="name" type="text" placeholder="Nombre de tu artista *" />
+                        <div class="invalid-feedback" data-sb-feedback="name:unrequired">Se requiere un nombre</div>
                     </div>
                     <div class="form-group">
                         <!-- Song input-->
-                        <input class="form-control" name="cancion" id="name" type="text" placeholder="Canción *" data-sb-validations="required" />
+                        <input class="form-control" name="cancion" id="name" type="text" placeholder="Canción *" />
                         <div class="invalid-feedback" data-sb-feedback="name:required">Se requiere un nombre</div>
                     </div>
                     <div class="form-group">
@@ -33,21 +33,9 @@
                 </div>
             </div>
             <!-- Submit Button-->
-            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Buscar</button></div>
+            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Enviar</button></div>
         </form>
     </div>
 </section>
 
 {% endblock %}
-
-<!-- <section class="page-section" id="contact">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="section-heading text-uppercase">Charts</h2>
-            <h3 class="section-subheading text-muted">RESULTADOS</h3>
-            <table>
-                {{charts.as_table}}
-            </table>
-        </div>
-    </div>
-</section> -->

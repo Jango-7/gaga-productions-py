@@ -7,4 +7,4 @@ class Formulario(forms.Form):
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(label='Podes buscar artistas')
+    query = forms.CharField(label='Búsqueda de artistas')
