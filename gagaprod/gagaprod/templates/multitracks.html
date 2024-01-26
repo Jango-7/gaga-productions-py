@@ -44,7 +44,10 @@
                 <div class="text-center text-danger mb-3">Error enviando el mensaje!</div>
             </div>
             <!-- Submit Button-->
-            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Enviar</button></div>
+            <div class="text-center">
+                <button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Enviar</button>
+                <a class="btn btn-success btn-xl text-uppercase" href="{% url 'mtlist' %}">Ver todos</a>
+            </div>
         </form>
     </div>
 </section>

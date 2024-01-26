@@ -1,7 +1,17 @@
 # from django.shortcuts import render
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from .models import ProduccionesMod, MultitracksMod, ChartsMod
-from sitio.forms import SearchForm
+from sitio.forms import SearchForm, Formulario
+# CLASE 22
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+#CLASE 23
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.contrib.auth.views import LogoutView
 
 # ============= VISTA HOME ================
 
@@ -89,3 +99,124 @@ def charts_v(request):
 
 
 #     return render(request, 'charts.html')
+
+# PROOF
+
+def pruebas_v(request):
+
+    formu = Formulario()
+    return render(request, 'pruebas.html', {"formu":formu})
+
+def bPruebas_v(request):
+    
+    if request.method == 'GET':
+        email = request.GET.get("email")
+        cliente = None
+
+        if email is None:
+            return HttpResponse("Debe enviar un Email")
+        
+        cliente = ProduccionesMod.objects.filter(email=email)
+
+        return render(request, 'pruebas2.html', {"cliente":cliente})
+    
+
+
+# ====== CLASE 22 ========
+    
+
+
+def leerCharts_v(request):
+
+    charts = ChartsMod.objects.all()
+
+    return render(request, 'leer_charts.html', {"charts": charts})
+
+
+# --- INVESTIGACION SOBRE COMO LEER EL CAMPO POR EL ID ---
+def eliminarCharts_v(request, num_id):
+    
+    chart = get_object_or_404(ChartsMod, id=num_id)
+    chart.delete()
+
+    charts = ChartsMod.objects.all()
+    return render(request, 'leer_charts.html', {"charts": charts})
+
+
+# ---- VISTAS BASADAS EN CLASES ----- 
+
+class MtList(ListView):
+    model = MultitracksMod
+    template_name = 'mt_list.html'
+
+
+class MtDetail(DetailView):
+    model = MultitracksMod
+    template_name = 'mt_detail.html'
+    context_object_name = 'mt'
+
+class MtCreate(CreateView):
+    model = MultitracksMod
+    fields = ['artista', 'cancion', 'descripcion']
+    template_name = 'mt_form.html'
+    success_url = '/sitio/mt/list'
+
+class MtUpdate(UpdateView):
+    model = MultitracksMod
+    fields = ['artista', 'cancion', 'descripcion']
+    template_name = 'mt_form.html'
+    success_url = "/sitio/mt/list"
+
+class MtDelete(DeleteView):
+    model = MultitracksMod
+    template_name = 'mt_delete.html'
+    success_url = "/sitio/mt/list"
+
+
+# ====== CLASE 23 ============
+
+# ------ LOGIN ------
+def login_request(request):
+
+    if request.method == 'POST':
+        #Leer los datos del form
+        form = AuthenticationForm(request, data=request.POST)
+        #Leer si los datos concuerdan con campos del form
+        if form.is_valid():
+            #Obtener los datos
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            # Usamos la funcion authenticate para validar si coinciden los datos de usuario y contraseña
+            user = authenticate(username=username, password=password)
+            # Si no coinciden, aparece un None, por lo tanto, si no es None, estas dentro. 
+            if user is not None:
+                login(request, user)
+                return render(request, 'index.html', {"mensaje": f"Bienvenido {username}"})
+            else:
+                return render(request, 'index.html', {"mensaje": f"User or password wrong"})
+        # Si los datos del form no son bien completados
+        else:
+            return render(request, 'index.html', {"mensaje": "Datos del formulario incorrectos"})        
+    
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form':form})
+
+
+# ----- Registrar user ----- 
+
+def register_v(request):
+    if request.method == "POST":
+        # leer los datos que vienen del request.POST
+        form = UserCreationForm(request.POST)
+        # Validamos y guardamos los datos. Django se encarga de validar si la confirmacion de la contraseña es correcta.
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            form.save()
+            # importamos: from django.contrib import messages
+            messages.success(request, f"{username} registrado exitosamente")
+            # Redireccionamos a home con la funcion importada
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, "registro.html", {"form": form})

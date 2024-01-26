@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT Formulario</title>
+</head>
+
+<style>
+    .mt_form{
+        max-width: 400px;
+        margin: auto;
+        padding: 100px;
+        font-family: monospace;
+        font-size: large;
+        text-align: center;
+    }
+
+    .mt_form input[type="text"],
+    .mt_form textarea {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .mt_form button {
+        width: 150px;
+        height: 40px;
+        background-color: rgb(175, 166, 166);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: large;
+    }
+
+    .mt_form button:hover {
+        background-color: rgb(21, 165, 21);
+    }
+    
+    .mt_form label {
+        display: block;
+        font-weight: bold;
+    }
+</style>
+<!-- Terminan los estilos  -->
+
+<!-- Datos del Body -->
+<body>
+    
+    <form class="mt_form" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Enviar</button>
+    </form>
+    <a href="{% url 'mtlist' %}">
+        <button type="button">Regresar</button>
+    </a>
+    
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'pruebas.html' %}
+{% block head %}
+
+<h2>Busqueda</h2>
+
+{% if cliente %}
+<li>Cliente: {{cliente.nombre}}</li>
+{% else %}
+<h3>No se encontro nada</h3>
+{% endif %}
+
+
+{% endblock %}

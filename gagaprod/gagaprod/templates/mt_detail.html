@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Multitracks</title>
+</head>
+<body>
+
+    <p>Artista: {{ mt.artista }}</p>
+    <p>Canción: {{ mt.cancion }}</p>
+    <p>Descripción: {{ mt.descripcion }}</p>
+
+    <a href="{% url 'mtlist' %}">Regresar</a>
+
+</body>
+</html>

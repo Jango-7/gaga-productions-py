@@ -1,0 +1,30 @@
+{% extends 'pruebas.html' %}
+{% block head %}
+
+<style>
+    li {
+        list-style-type: none;
+        padding: 10px;
+        margin-right: 5px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+</style>
+
+<!-- BUSQUEDA DE CHARTS -->
+
+<h2>BUSQUEDA DE CHARTS</h2>
+
+{% for chart in charts %}
+<li>{{chart}}</li>
+<a class="btn btn-outline-danger btn-sm" href="{% url 'eliminar_charts' chart.id %}"> Delete chart </a>
+{% endfor %}
+<br>
+<br>
+<div class="container">
+    <a class="btn btn-dark btn-sm" href="{% url 'charts' %}">Add chart</a>
+    <a class="btn btn-outline-dark btn-sm" href="{% url 'home' %}">Regresar</a>
+</div>
+
+{% endblock %}

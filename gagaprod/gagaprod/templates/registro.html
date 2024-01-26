@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Register</title>
+</head>
+
+<style>
+    .mt_form{
+        max-width: 600px;
+        font-family: monospace;
+        margin: auto;
+    }
+
+    .mt_form input[type="text"],
+    .mt_form textarea {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .mt_form button {
+        width: 100px;
+        height: 40px;
+        background-color: rgb(141, 132, 132);
+        color: black;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: medium;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .mt_form button:hover {
+        background-color: rgb(26, 147, 177);
+    }
+    
+    .mt_form label {
+        display: block;
+        font-weight: bold;
+    }
+    .mt_form .helptext{
+        display: flex;
+    }
+</style>
+<!-- Terminan los estilos  -->
+
+<!-- Datos del Body -->
+<body>
+    
+    <form class="mt_form" action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Registrar</button>
+        <a href="{% url 'home' %}">
+            <button type="button">Regresar</button>
+        </a>
+    </form>
+    
+    
+</body>
+</html>

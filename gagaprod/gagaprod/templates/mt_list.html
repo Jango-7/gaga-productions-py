@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Lista Multitracks</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+
+<style>
+    h1 {
+    font-size: 2em;
+    }
+
+    li {
+        list-style-type: none;
+        padding: 10px;
+        margin-right: 5px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+
+    button {
+        width: 100px;
+        height: 40px;
+        background-color: rgb(175, 166, 166);
+        color: white;
+        padding: 10px;
+        margin-top: 30px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: medium;
+    }
+
+    button:hover {
+        background-color: rgb(216, 161, 42);
+    }
+</style>
+
+    <body>
+        <h1>Artistas en nuestros MT</h1>
+
+        {% for mt in object_list %}
+        <li>{{mt.artista}}</li>
+        <a class="btn btn-outline-info btn-sm" href="{% url 'mtdetail' mt.id %}">Ver</a>
+        <a class="btn btn-outline-info btn-sm" href="{% url 'mtedit' mt.id %}">Editar</a>
+        <a class="btn btn-outline-info btn-sm" href="{% url 'mtdelete' mt.id %}">Eliminar</a>
+        {% endfor %}
+
+        <div>
+            <a href="{% url 'mtcreate' %}">
+                <button class="create" type="button">Crear MT</button>
+            </a>
+            <a href="{% url 'home' %}">
+                <button class="create" type="button">Regresar</button>
+            </a>
+        </div>
+
+    </body>
+
+</html>
