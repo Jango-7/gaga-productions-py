@@ -12,6 +12,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth.decorators import login_required
+
 
 # ============= VISTA HOME ================
 
@@ -28,6 +30,7 @@ def home_v(request):
 
 # ============= VISTA PRODUCCION ==========
 
+@login_required
 def producciones_v(request):
     if request.method == "POST":
         nombre = request.POST.get("nombre")
@@ -44,6 +47,7 @@ def producciones_v(request):
 
 # ============ VISTA MULTITRACKS ==============
 
+@login_required
 def multitracks_v(request):
     if request.method == "POST":
         artista = request.POST.get("artista")
@@ -60,6 +64,7 @@ def multitracks_v(request):
 
 # ======= VISTA CHARTS ======== 
 
+@login_required
 def charts_v(request):
     if request.method == "POST":
         artista = request.POST.get("artista")
@@ -134,6 +139,7 @@ def leerCharts_v(request):
 
 
 # --- INVESTIGACION SOBRE COMO LEER EL CAMPO POR EL ID ---
+
 def eliminarCharts_v(request, num_id):
     
     chart = get_object_or_404(ChartsMod, id=num_id)
