@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import ProduccionesMod, MultitracksMod, ChartsMod
-from sitio.forms import SearchForm, Formulario
+from sitio.forms import SearchForm, Formulario, UserRegistrationForm, UserEditForm
 # CLASE 22
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -210,10 +210,30 @@ def login_request(request):
 
 # ----- Registrar user ----- 
 
+# def register_v(request):
+#     if request.method == "POST":
+#         # leer los datos que vienen del request.POST
+#         form = UserCreationForm(request.POST)
+#         # Validamos y guardamos los datos. Django se encarga de validar si la confirmacion de la contraseña es correcta.
+#         if form.is_valid():
+#             username = form.cleaned_data.get("username")
+#             form.save()
+#             # importamos: from django.contrib import messages
+#             messages.success(request, f"{username} registrado exitosamente")
+#             # Redireccionamos a home con la funcion importada
+#             return redirect('home')
+#     else:
+#         form = UserCreationForm()
+    
+#     return render(request, "registro.html", {"form": form})
+
+
+# ---- CLASE 24 ------- registrar y editar user
+
 def register_v(request):
     if request.method == "POST":
         # leer los datos que vienen del request.POST
-        form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         # Validamos y guardamos los datos. Django se encarga de validar si la confirmacion de la contraseña es correcta.
         if form.is_valid():
             username = form.cleaned_data.get("username")
@@ -223,6 +243,31 @@ def register_v(request):
             # Redireccionamos a home con la funcion importada
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = UserRegistrationForm()
     
     return render(request, "registro.html", {"form": form})
+
+
+# ---- edit user ----
+@login_required
+def edit_user(request):
+    
+    usuario = request.user
+
+    if request.method == 'POST':
+        formulario = UserEditForm(request.POST)
+
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            usuario.email = info.get('email')
+            usuario.password1 = info.get('password1')
+            usuario.password2 = info.get('password2')
+            usuario.last_name = info.get('last_name')
+            usuario.first_name = info.get('first_name')
+
+            usuario.save()
+            return render(request, 'index.html')
+    else:
+        formulario = UserEditForm(initial={'email': usuario.email})
+
+        return render(request, 'edit_user.html', {'formulario':formulario, 'usuario': usuario})

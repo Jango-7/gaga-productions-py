@@ -17,7 +17,9 @@ from sitio.views import (
     #CLASE 23
     login_request,
     register_v,
-    LogoutView
+    LogoutView,
+    #CLASE24
+    edit_user,
 )
 
 urlpatterns = [
@@ -39,5 +41,7 @@ urlpatterns = [
     path('login', login_request, name='login'),
     path('register', register_v, name='register'),
     path('logout', LogoutView.as_view(template_name = 'logout.html'), name='logout'),
+    #CLASE24
+    path('edit_user', edit_user, name='edit_user'),
 
 ]
