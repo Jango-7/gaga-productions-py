@@ -3,7 +3,8 @@ from sitio.views import (
     home_v, 
     producciones_v, 
     multitracks_v, 
-    charts_v, 
+    charts_v,
+    about_v, 
     pruebas_v, 
     bPruebas_v,
     # CLASE 22
@@ -27,6 +28,7 @@ urlpatterns = [
     path('producciones', producciones_v, name='producciones'),
     path('multitracks', multitracks_v, name='multitracks'),
     path('charts', charts_v, name='charts'),
+    path('about', about_v, name='about'),
     path('pruebas', pruebas_v, name='pruebas'),
     path('pruebas2', bPruebas_v, name='pruebas2'),
     #CLASE 22

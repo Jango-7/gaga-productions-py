@@ -79,6 +79,13 @@ def charts_v(request):
     return render(request, 'charts.html')
 
 
+# ======= Vista about =======
+
+def about_v(request):
+    pass
+    return render(request, 'about.html')
+
+
 # ============ VISTA FIND =========
 
 # def find_v(request):
