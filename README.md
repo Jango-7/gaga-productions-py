@@ -1,4 +1,4 @@
-# py_entrega3_JohanGarcia
+# Python and Django web page
 
 USUARIO ADMINISTRADOR:
 user: admin
